@@ -32,7 +32,7 @@ Key novelty: context-aware risk scaling that is bounded by congestion control, e
 [PASTE PEDESTRIAN PSEUDOCODE HERE]
 
 ### 1.4 Hardware components + parameters
-See tables/parameters.md
+See hardware/parameters.md
 
 ### 1.5 Use case (100–200 words)
 A vehicle travels at 60 km/h during heavy rain at night. Ambient light is low, wiper speed indicates intense rain, and camera contrast suggests reduced visibility. The vehicle computes a low Visibility Index V and scales its safety bubble radius and TTC threshold upward, increasing warning priority. The desired message rate rises to improve timeliness, but the radio measures channel busy ratio (CBR) as moderate, so congestion control caps the rate to prevent overload. A pedestrian begins crossing near a junction. The pedestrian phone receives the vehicle’s broadcast, computes relative motion, predicts the closest approach within the adaptive TTC window, and triggers a strong haptic and audio warning. As the vehicle slows and visibility improves, the system reduces warning intensity and returns to a lower beacon rate.
