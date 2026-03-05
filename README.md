@@ -123,19 +123,25 @@ Main components:
 
 # 4 Adaptive Risk Scaling Model
 
-## Visibility Index Calculation
+## Visibility Index (normalized)
 
-The system estimates environmental visibility using:
+We normalize each factor to [0,1]:
 
-[
-V = \alpha L + \beta R + \gamma F
-]
+- L = normalized ambient light (0 = dark, 1 = bright)
+- R = normalized rain intensity (0 = none, 1 = heavy)
+- F = normalized fog level (0 = clear, 1 = dense)
 
-Where:
+Visibility Index (higher = better visibility):
 
-* **L** = ambient light level
-* **R** = rain intensity
-* **F** = fog level
+$$
+V = w_L L + w_R (1 - R) + w_F (1 - F), \quad V \in [0,1]
+$$
+
+Risk scaling factor (higher = higher risk due to low visibility):
+
+$$
+S = 1 - V
+$$
 
 Lower visibility results in higher risk scaling.
 
