@@ -39,7 +39,7 @@ This targets earlier warning under poor visibility without “always-on high-rat
 
 # 1. System Architecture
 
-## Overall Architecture
+## 1.1 Overall Architecture
 
 The AViRS-V2P system consists of two main components:
 
@@ -48,13 +48,13 @@ The AViRS-V2P system consists of two main components:
 
 ---
 
-## Architecture Diagram
+## 1.2 Architecture Diagram
 
 ![Block Diagram](architecture/diagrams/block%20diagram.jpeg)
 
 ---
 
-## Vehicle Side
+## 1.3 Vehicle Side
 
 The vehicle continuously evaluates environmental conditions and computes a dynamic risk level.
 
@@ -71,7 +71,7 @@ The vehicle broadcasts safety messages to nearby pedestrian devices.
 
 ---
 
-## Pedestrian Side
+## 1.4 Pedestrian Side
 
 The pedestrian device (smartphone) receives V2P safety messages and evaluates collision risk.
 
@@ -87,7 +87,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 # 2. Functions and Communication Messages
 
-## System Functions
+## 2.1 System Functions
 
 ### Vehicle Node
 
@@ -109,7 +109,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-# AViRS Safety Message Format
+## 2.2 AViRS Safety Message Format
 
 | Field            | Description                             |
 | ---------------- | --------------------------------------- |
@@ -127,7 +127,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 # 3. Hardware Components and System Parameters
 
-## Vehicle Sensors
+## 3.1 Vehicle Sensors
 
 | Sensor                    | Purpose                             |
 | ------------------------- | ----------------------------------- |
@@ -139,7 +139,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-## Example System Parameters
+## 3.2 Example System Parameters
 
 | Parameter      | Example Value |
 | -------------- | ------------- |
@@ -152,7 +152,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-## Environmental Parameter Ranges
+## 3.3 Environmental Parameter Ranges
 
 | Parameter           | Measurement Unit | Example Range |
 | ------------------- | ---------------- | ------------- |
@@ -164,7 +164,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 # 4. Adaptive Risk Scaling Model
 
-## Visibility Index (Normalized)
+## 4.1 Visibility Index (Normalized)
 
 We normalize each factor to **[0,1]**:
 
@@ -200,13 +200,13 @@ The weights can be calibrated using experimental data or simulation in future im
 
 ---
 
-# Environmental Parameter Normalization
+## 4.2 Environmental Parameter Normalization
 
 Environmental parameters are normalized so that measurements with different physical units can be combined into a single equation.
 
 ---
 
-## Ambient Light (L)
+### 4.2.1 Ambient Light (L)
 
 | Condition       | Light Level | Normalized L |
 | --------------- | ----------- | ------------ |
@@ -219,7 +219,7 @@ Lower light levels correspond to poorer visibility.
 
 ---
 
-## Rain Intensity (R)
+### 4.2.2 Rain Intensity (R)
 
 | Wiper Speed   | Estimated Rain Intensity | Normalized R |
 | ------------- | ------------------------ | ------------ |
@@ -232,7 +232,7 @@ Higher rain intensity increases visual obstruction.
 
 ---
 
-## Fog Level (F)
+### 4.2.3 Fog Level (F)
 
 | Visibility Distance | Fog Condition | Normalized F |
 | ------------------- | ------------- | ------------ |
@@ -245,7 +245,7 @@ Lower visibility distances correspond to higher fog levels.
 
 ---
 
-## Adaptive TTC Threshold
+## 4.3 Adaptive TTC Threshold
 
 | Condition    | TTC Threshold | Broadcast Rate |
 | ------------ | ------------- | -------------- |
@@ -288,13 +288,13 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 # 7. AI Usage and Reflection
 
-## AI Tools Used
+## 7.1 AI Tools Used
 
 * **ChatGPT** – concept ideation and documentation
 
 ---
 
-## Example Prompts Used
+## 7.2 Example Prompts Used
 
 **Example prompt 1**
 
@@ -310,7 +310,7 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
-## AI Limitations Identified
+## 7.3 AI Limitations Identified
 
 1. AI suggested unrealistic hardware sensors that were replaced with practical alternatives.
 2. Some generated parameter values were unrealistic and were manually verified.
@@ -318,7 +318,7 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
-# Individual Reflection
+## 7.4 Individual Reflection
 
 Each team member will include a short reflection describing:
 
@@ -338,7 +338,7 @@ I contributed to the adaptive risk-scaling model, especially the Visibility Inde
 
 ## Shirin
 
-I contributed to documenting the system workflow and ensuring the end-to-end communication flow is easy to follow from sensing to broadcast to pedestrian alert. ChatGPT helped structure our README sections and produce clear, concise descriptions of the pipeline and message-handling steps. I verified the documentation by checking consistency across sections (architecture ↔ functions ↔ message format) so that no module is missing inputs or outputs. I also reviewed our diagrams and links to ensure they correctly represent the written workflow and can be opened from the README. Where drafts were too long or unclear, I streamlined them while retaining the technical meaning. I improved the final README by ensuring the reader can understand the system without needing extra explanations. Overall, my work focused on clarity, completeness, and presentation quality.
+I contributed to documenting the system workflow and ensuring the end-to-end communication flow is easy to follow from sensing to broadcast to pedestrian alert. ChatGPT helped structure our README sections and produce clear, concise descriptions of the pipeline and message-handling steps. I verified the documentation by checking consistency across sections (architecture <-> functions <-> message format) so that no module is missing inputs or outputs. I also reviewed our diagrams and links to ensure they correctly represent the written workflow and can be opened from the README. Where drafts were too long or unclear, I streamlined them while retaining the technical meaning. I improved the final README by ensuring the reader can understand the system without needing extra explanations. Overall, my work focused on clarity, completeness, and presentation quality.
 
 ## Sylvia
 
