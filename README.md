@@ -178,11 +178,15 @@ We normalize each factor to **[0,1]**:
 V = w_L L + w_R (1 - R) + w_F (1 - F)
 ```
 
+```math
 V∈[0,1]
+```
 
 Risk scaling factor:
 
+```math
 S = 1 - V
+```
 
 Lower visibility results in higher risk scaling.
 
