@@ -31,7 +31,7 @@ The vehicle continuously evaluates environmental conditions and computes a dynam
 
 Main components:
 
-* GNSS receiver (vehicle position and speed)
+* Global Navigation Satellite System receiver / GNSS receiver (vehicle position and speed)
 * Ambient light sensor / camera
 * Rain intensity detection (wiper speed proxy)
 * Fog or visibility estimator
