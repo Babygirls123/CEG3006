@@ -30,6 +30,10 @@ Building on this, AViRS-V2P contributes a protocol-level adaptation layer that c
 
 ## Overall Architecture
 
+## Architecture Diagram
+
+![AViRS-V2P System Architecture](docs/architecture/avirs-v2p-architecture.png)
+
 The AViRS-V2P system consists of two main components:
 
 ### Vehicle Side
