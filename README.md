@@ -174,19 +174,13 @@ We normalize each factor to **[0,1]**:
 
 ### Visibility Index Formula
 
-[
 V = w_L L + w_R (1 - R) + w_F (1 - F)
-]
 
-[
-V \in [0,1]
-]
+V∈[0,1]
 
 Risk scaling factor:
 
-[
 S = 1 - V
-]
 
 Lower visibility results in higher risk scaling.
 
