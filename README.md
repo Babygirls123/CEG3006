@@ -281,9 +281,7 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ## AI Tools Used
 
-* ChatGPT – concept ideation and system design
-* AI diagram tools – architecture diagrams
-* AI writing support – documentation structuring
+* ChatGPT – concept ideation and documentation
 
 ---
 
