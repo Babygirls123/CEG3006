@@ -31,7 +31,7 @@ Building on this, AViRS-V2P contributes a protocol-level adaptation layer that c
 ## Overall Architecture
 
 ## Architecture Diagram
-[![Block Diagram](<architecture/diagrams/block diagram.jpeg>)](<architecture/diagrams/block diagram.jpeg>)
+[![Block Diagram](<architecture/diagrams/block diagram.jpeg>)
 
 ## Communication Flow
 ![Communication Flow](architecture/diagrams/communication_flow.png)
