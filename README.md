@@ -1,4 +1,4 @@
-# Adaptive Visibility & Risk Scaling V2P System (AViRS-V2P)
+# Adaptive Visibility & Risk Scaling V2P System
 
 ## Project Overview
 
@@ -16,6 +16,8 @@ Using this index, AViRS-V2P dynamically adjusts:
 * Alert intensity
 
 This transforms V2P from a **static warning system into a context-aware adaptive communication protocol**, allowing safer operation while maintaining network efficiency.
+
+---
 
 # 1 System Architecture
 
@@ -51,6 +53,8 @@ Main components:
 * V2P communication receiver
 * TTC estimation module
 * Alert engine (audio / vibration warning)
+
+---
 
 # 2 Functions and Communication Messages
 
@@ -88,6 +92,8 @@ Main components:
 | Safety Radius    | Maximum alert range                     |
 | Risk Level       | Low / Medium / High                     |
 
+---
+
 # 3 Hardware Components and System Parameters
 
 ## Vehicle Sensors
@@ -112,6 +118,8 @@ Main components:
 | Safety Radius  | 30–90 m       |
 | Message Size   | ~200 bytes    |
 | Target Latency | <100 ms       |
+
+---
 
 # 4 Adaptive Risk Scaling Model
 
@@ -144,6 +152,8 @@ Lower visibility results in higher risk scaling.
 
 This allows the system to increase safety margins during poor visibility.
 
+---
+
 # 5 Use Case Scenario
 
 A vehicle travels at **60 km/h at night during heavy rain**. Environmental sensors detect low ambient light and high rain intensity, resulting in a low Visibility Index.
@@ -156,6 +166,8 @@ The pedestrian device immediately triggers a **vibration and audio alert**, allo
 
 This adaptive approach provides earlier warnings compared to traditional fixed-threshold V2P systems.
 
+---
+
 # 6 Decision Log
 
 (Chronological record of design decisions)
@@ -167,6 +179,8 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 | XX/XX | Environmental sensing      | Raw sensors vs visibility index | Message size       | Visibility index used | AI assisted      | Member C    |
 
 *(More entries will be added during system development.)*
+
+---
 
 # 7 AI Usage and Reflection
 
@@ -209,3 +223,5 @@ Each team member will include a short reflection describing:
 * Their contribution to the project
 * How AI tools assisted their work
 * How results were verified and improved
+
+---
