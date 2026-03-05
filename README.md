@@ -23,7 +23,7 @@ Key novelty: context-aware risk scaling that is bounded by congestion control, e
 (See docs/references.md for sources and docs/assumptions.md for stated parameter assumptions.)
 
 ### 1.2 System architecture
-![Architecture](diagrams/architecture.png)
+![Architecture](system architechture/block diagram.jpeg)
 
 ### 1.3 Functions and messages
 - Message definitions: tables/message-formats.md
