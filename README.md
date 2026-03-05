@@ -174,7 +174,9 @@ We normalize each factor to **[0,1]**:
 
 ### Visibility Index Formula
 
+```math
 V = w_L L + w_R (1 - R) + w_F (1 - F)
+```
 
 V∈[0,1]
 
