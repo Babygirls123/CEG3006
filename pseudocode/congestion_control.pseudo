@@ -1,0 +1,15 @@
+FUNCTION ApplyCongestionControl(tx_rate_hz, channel_busy_ratio):
+  // DCC-style backoff: cap rate if channel load is high
+  // channel_busy_ratio (CBR) in [0,1] estimated by OBU
+
+  IF channel_busy_ratio > 0.8:
+    // severe congestion: safety messages still sent but at minimal rate
+    tx_rate_hz = MIN(tx_rate_hz, 2)
+
+  ELSE IF channel_busy_ratio > 0.6:
+    // moderate congestion: cap high rates
+    tx_rate_hz = MIN(tx_rate_hz, 5)
+
+  // else: keep tx_rate_hz unchanged
+
+  RETURN tx_rate_hz

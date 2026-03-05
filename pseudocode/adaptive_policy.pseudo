@@ -1,0 +1,43 @@
+FUNCTION AdaptivePolicy(V, speed_mps):
+  // Inputs:
+  // V: Visibility Index in [0,1] (higher is better visibility)
+  // speed_mps: vehicle speed in m/s
+
+  // Convert visibility to "risk scale"
+  S = 1 - V   // higher S => poorer visibility => higher risk
+
+  // Speed factor: normalize around 60 km/h (16.7 m/s)
+  speed_factor = speed_mps / 16.7
+  IF speed_factor < 0.8: speed_factor = 0.8
+  IF speed_factor > 1.4: speed_factor = 1.4
+
+  // TTC threshold range from README: 2 to 4 seconds
+  base_ttc = 2.0
+  ttc_threshold = base_ttc + (2.0 * S)        // 2.0 to 4.0 as S goes 0->1
+  ttc_threshold = ttc_threshold * speed_factor
+
+  // Clamp to [2.0, 4.0]
+  IF ttc_threshold < 2.0: ttc_threshold = 2.0
+  IF ttc_threshold > 4.0: ttc_threshold = 4.0
+
+  // Broadcast rate mapping from README table: 1 to 10 Hz
+  // Clear -> 1 Hz, poor visibility -> 10 Hz
+  tx_rate_hz = 1 + ROUND(9 * S)   // S=0 => 1 Hz, S=1 => 10 Hz
+  IF tx_rate_hz < 1: tx_rate_hz = 1
+  IF tx_rate_hz > 10: tx_rate_hz = 10
+
+  // Safety radius range from README: 30 to 90 m
+  safety_radius_m = 30 + ROUND(60 * S)        // 30 to 90
+  safety_radius_m = ROUND(safety_radius_m * speed_factor)
+
+  // Clamp safety radius to [30, 90]
+  IF safety_radius_m < 30: safety_radius_m = 30
+  IF safety_radius_m > 90: safety_radius_m = 90
+
+  // Risk level (Low/Medium/High) using TTC threshold bands
+  // (You can keep this simple + explainable)
+  IF ttc_threshold >= 3.5: risk_level = "High"
+  ELSE IF ttc_threshold >= 2.6: risk_level = "Medium"
+  ELSE: risk_level = "Low"
+
+  RETURN (ttc_threshold, tx_rate_hz, safety_radius_m, risk_level)

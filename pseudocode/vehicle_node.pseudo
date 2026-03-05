@@ -1,0 +1,48 @@
+PROCESS VehicleNodeLoop:
+  // Weighting factors from README
+  wL = 0.4
+  wR = 0.35
+  wF = 0.25
+
+  LOOP forever:
+    // 1) Read sensors
+    gnss_pos = READ_GNSS_POSITION()
+    speed_mps = READ_GNSS_SPEED()
+    heading = READ_HEADING()
+
+    lux = READ_AMBIENT_LIGHT_LUX()
+    wiper_state = READ_WIPER_STATE()
+    visibility_m = ESTIMATE_VISIBILITY_DISTANCE_FROM_CAMERA()
+
+    channel_busy_ratio = ESTIMATE_CHANNEL_BUSY_RATIO()
+
+    // 2) Normalize environmental parameters
+    L = NormalizeAmbientLight(lux)
+    R = NormalizeRainFromWiper(wiper_state)
+    F = NormalizeFogFromVisibilityDistance(visibility_m)
+
+    // 3) Compute Visibility Index
+    V = ComputeVisibilityIndex(L, R, F, wL, wR, wF)
+
+    // 4) Adaptive policy (TTC threshold, tx rate, radius, risk level)
+    (ttc_threshold, tx_rate_hz, safety_radius_m, risk_level) = AdaptivePolicy(V, speed_mps)
+
+    // 5) Congestion control backoff
+    tx_rate_hz = ApplyCongestionControl(tx_rate_hz, channel_busy_ratio)
+
+    // 6) Build message
+    policy_outputs.V = V
+    policy_outputs.ttc_threshold = ttc_threshold
+    policy_outputs.safety_radius_m = safety_radius_m
+    policy_outputs.risk_level = risk_level
+
+    vehicle_state.vehicle_id = GET_ANON_VEHICLE_ID()
+    vehicle_state.gnss_position = gnss_pos
+    vehicle_state.speed = speed_mps
+    vehicle_state.heading = heading
+
+    msg = BuildAViRSMessage(vehicle_state, policy_outputs)
+
+    // 7) Broadcast at tx_rate_hz
+    BROADCAST(msg)
+    SLEEP(1 / tx_rate_hz)

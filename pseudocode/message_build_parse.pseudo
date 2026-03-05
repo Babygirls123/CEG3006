@@ -1,0 +1,27 @@
+// AViRS Safety Message (matches README Section 2.2)
+MESSAGE AViRS_SafetyMessage:
+  VehicleID         // anonymous identifier
+  Timestamp         // message generation time
+  VehiclePosition   // GNSS latitude & longitude
+  VehicleSpeed      // current speed
+  Heading           // vehicle direction
+  VisibilityIndex   // computed environmental visibility score
+  TTCThreshold      // dynamic collision threshold
+  SafetyRadius      // maximum alert range
+  RiskLevel         // Low / Medium / High
+
+FUNCTION BuildAViRSMessage(vehicle_state, policy_outputs):
+  msg.VehicleID = vehicle_state.vehicle_id
+  msg.Timestamp = NOW()
+  msg.VehiclePosition = vehicle_state.gnss_position
+  msg.VehicleSpeed = vehicle_state.speed
+  msg.Heading = vehicle_state.heading
+  msg.VisibilityIndex = policy_outputs.V
+  msg.TTCThreshold = policy_outputs.ttc_threshold
+  msg.SafetyRadius = policy_outputs.safety_radius_m
+  msg.RiskLevel = policy_outputs.risk_level
+  RETURN msg
+
+FUNCTION ParseAViRSMessage(raw_msg):
+  // validate basic fields exist; discard if missing
+  RETURN decoded_msg

@@ -1,0 +1,15 @@
+FUNCTION HaversineDistanceMeters(lat1, lon1, lat2, lon2):
+  // returns distance in meters
+  // (implementation details omitted in pseudocode)
+  RETURN d_m
+
+FUNCTION EstimateClosingSpeed(vehicle_speed_mps, vehicle_heading, ped_speed_mps, ped_heading, vehicle_to_ped_vector):
+  // Simple approximation:
+  // closing speed is relative speed projected along line-of-sight
+  // (concept-level; detailed vector math omitted)
+  RETURN closing_speed_mps
+
+FUNCTION ComputeTTC(distance_m, closing_speed_mps):
+  IF closing_speed_mps <= 0:
+    RETURN INFINITY
+  RETURN distance_m / closing_speed_mps

@@ -1,0 +1,32 @@
+FUNCTION NormalizeAmbientLight(lux):
+  // lux range in README: 0 to 10000
+  // lower lux => poorer visibility
+  IF lux >= 1000: RETURN 1.0
+  ELSE IF lux >= 200: RETURN 0.8
+  ELSE IF lux >= 10: RETURN 0.3
+  ELSE: RETURN 0.1
+
+FUNCTION NormalizeRainFromWiper(wiper_state):
+  // wiper_state: Off, Intermittent, Medium, Maximum
+  IF wiper_state == "Off": RETURN 0.0
+  ELSE IF wiper_state == "Intermittent": RETURN 0.3
+  ELSE IF wiper_state == "Medium": RETURN 0.6
+  ELSE: RETURN 1.0
+
+FUNCTION NormalizeFogFromVisibilityDistance(visibility_m):
+  // visibility distance ranges in README
+  IF visibility_m > 200: RETURN 0.0
+  ELSE IF visibility_m >= 100: RETURN 0.3
+  ELSE IF visibility_m >= 50: RETURN 0.6
+  ELSE: RETURN 1.0
+
+FUNCTION ComputeVisibilityIndex(L, R, F, wL, wR, wF):
+  // README formula:
+  // V = wL*L + wR*(1-R) + wF*(1-F), V in [0,1]
+  V = (wL * L) + (wR * (1 - R)) + (wF * (1 - F))
+
+  // Clamp to [0,1]
+  IF V < 0: V = 0
+  IF V > 1: V = 1
+
+  RETURN V
