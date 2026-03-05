@@ -31,8 +31,13 @@ Building on this, AViRS-V2P contributes a protocol-level adaptation layer that c
 ## Overall Architecture
 
 ## Architecture Diagram
+![Block Diagram](<architecture/diagrams/block diagram.jpeg>)
 
-![AViRS-V2P System Architecture](docs/architecture/avirs-v2p-architecture.png)
+## Communication Flow
+![Communication Flow](architecture/diagrams/communication_flow.png)
+
+## Sequence Flow
+![Sequence Flow](<architecture/diagrams/sequence flow.jpeg>)
 
 The AViRS-V2P system consists of two main components:
 
