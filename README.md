@@ -1,4 +1,4 @@
-# Adaptive Visibility & Risk Scaling V2P System
+# Adaptive Visibility & Risk Scaling V2P System (AViRS-V2P)
 
 ## Project Overview
 
