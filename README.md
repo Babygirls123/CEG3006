@@ -2,40 +2,6 @@
 
 ---
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Literature Research](#literature-research)
-- [1 System Architecture](#1-system-architecture)
-  - [1.1 Overall Architecture](#11-overall-architecture)
-  - [1.2 Architecture Diagram](#12-architecture-diagram)
-  - [1.3 Communication Flow](#13-communication-flow)
-  - [1.4 Sequence Flow](#14-sequence-flow)
-  - [1.5 Vehicle Side](#15-vehicle-side)
-  - [1.6 Pedestrian Side](#16-pedestrian-side)
-- [2 Functions and Communication Messages](#2-functions-and-communication-messages)
-  - [2.1 System Functions](#21-system-functions)
-  - [2.2 AViRS Safety Message Format](#22-avirs-safety-message-format)
-- [3 Hardware Components and System Parameters](#3-hardware-components-and-system-parameters)
-  - [3.1 Vehicle Sensors](#31-vehicle-sensors)
-  - [3.2 Example System Parameters](#32-example-system-parameters)
-  - [3.3 Environmental Parameter Ranges](#33-environmental-parameter-ranges)
-- [4 Adaptive Risk Scaling Model](#4-adaptive-risk-scaling-model)
-  - [4.1 Visibility Index (Normalized)](#41-visibility-index-normalized)
-  - [4.2 Environmental Parameter Normalization](#42-environmental-parameter-normalization)
-    - [4.2.1 Ambient Light (L)](#421-ambient-light-l)
-    - [4.2.2 Rain Intensity (R)](#422-rain-intensity-r)
-    - [4.2.3 Fog Level (F)](#423-fog-level-f)
-  - [4.3 Adaptive TTC Threshold](#43-adaptive-ttc-threshold)
-- [5 Use Case Scenario](#5-use-case-scenario)
-- [6 Decision Log](#6-decision-log)
-- [7 AI Usage and Reflection](#7-ai-usage-and-reflection)
-  - [7.1 AI Tools Used](#71-ai-tools-used)
-  - [7.2 Example Prompts Used](#72-example-prompts-used)
-  - [7.3 AI Limitations Identified](#73-ai-limitations-identified)
-  - [7.4 Individual Reflection](#74-individual-reflection)
-
----
-
 # Project Overview
 
 AViRS-V2P (Adaptive Visibility & Risk Scaling Vehicle-to-Pedestrian system) is a context-aware V2P communication system designed to improve pedestrian safety in **low-visibility conditions such as night, heavy rain, and fog**.
@@ -71,9 +37,9 @@ This targets earlier warning under poor visibility without “always-on high-rat
 
 ---
 
-# 1 System Architecture
+# 1. System Architecture
 
-## 1.1 Overall Architecture
+## Overall Architecture
 
 The AViRS-V2P system consists of two main components:
 
@@ -82,25 +48,13 @@ The AViRS-V2P system consists of two main components:
 
 ---
 
-## 1.2 Architecture Diagram
+## Architecture Diagram
 
 ![Block Diagram](architecture/diagrams/block%20diagram.jpeg)
 
 ---
 
-## 1.3 Communication Flow
-
-![Communication Flow](architecture/diagrams/communication_flow.png)
-
----
-
-## 1.4 Sequence Flow
-
-![Sequence Flow](architecture/diagrams/sequence%20flow.jpeg)
-
----
-
-## 1.5 Vehicle Side
+## Vehicle Side
 
 The vehicle continuously evaluates environmental conditions and computes a dynamic risk level.
 
@@ -117,7 +71,7 @@ The vehicle broadcasts safety messages to nearby pedestrian devices.
 
 ---
 
-## 1.6 Pedestrian Side
+## Pedestrian Side
 
 The pedestrian device (smartphone) receives V2P safety messages and evaluates collision risk.
 
@@ -131,9 +85,9 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-# 2 Functions and Communication Messages
+# 2. Functions and Communication Messages
 
-## 2.1 System Functions
+## System Functions
 
 ### Vehicle Node
 
@@ -155,7 +109,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-## 2.2 AViRS Safety Message Format
+# AViRS Safety Message Format
 
 | Field            | Description                             |
 | ---------------- | --------------------------------------- |
@@ -171,9 +125,9 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-# 3 Hardware Components and System Parameters
+# 3. Hardware Components and System Parameters
 
-## 3.1 Vehicle Sensors
+## Vehicle Sensors
 
 | Sensor                    | Purpose                             |
 | ------------------------- | ----------------------------------- |
@@ -185,7 +139,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-## 3.2 Example System Parameters
+## Example System Parameters
 
 | Parameter      | Example Value |
 | -------------- | ------------- |
@@ -198,7 +152,7 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-## 3.3 Environmental Parameter Ranges
+## Environmental Parameter Ranges
 
 | Parameter           | Measurement Unit | Example Range |
 | ------------------- | ---------------- | ------------- |
@@ -208,9 +162,9 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 
 ---
 
-# 4 Adaptive Risk Scaling Model
+# 4. Adaptive Risk Scaling Model
 
-## 4.1 Visibility Index (Normalized)
+## Visibility Index (Normalized)
 
 We normalize each factor to **[0,1]**:
 
@@ -220,12 +174,19 @@ We normalize each factor to **[0,1]**:
 
 ### Visibility Index Formula
 
-> **Note:** GitHub Markdown does not always render LaTeX by default.  
-> The formula is provided below in a copyable format.
-V = wL * L + wR * (1 - R) + wF * (1 - F)
-V ∈ [0,1]
-S = 1 - V
+[
+V = w_L L + w_R (1 - R) + w_F (1 - F)
+]
 
+[
+V \in [0,1]
+]
+
+Risk scaling factor:
+
+[
+S = 1 - V
+]
 
 Lower visibility results in higher risk scaling.
 
@@ -239,13 +200,13 @@ The weights can be calibrated using experimental data or simulation in future im
 
 ---
 
-## 4.2 Environmental Parameter Normalization
+# Environmental Parameter Normalization
 
 Environmental parameters are normalized so that measurements with different physical units can be combined into a single equation.
 
 ---
 
-### 4.2.1 Ambient Light (L)
+## Ambient Light (L)
 
 | Condition       | Light Level | Normalized L |
 | --------------- | ----------- | ------------ |
@@ -258,9 +219,7 @@ Lower light levels correspond to poorer visibility.
 
 ---
 
-### 4.2.2 Rain Intensity (R)
-
-Rain intensity can be estimated using **vehicle wiper speed** as a proxy for precipitation level.
+## Rain Intensity (R)
 
 | Wiper Speed   | Estimated Rain Intensity | Normalized R |
 | ------------- | ------------------------ | ------------ |
@@ -273,9 +232,7 @@ Higher rain intensity increases visual obstruction.
 
 ---
 
-### 4.2.3 Fog Level (F)
-
-Fog severity can be estimated using **camera-based visibility detection**, where object contrast decreases as fog density increases.
+## Fog Level (F)
 
 | Visibility Distance | Fog Condition | Normalized F |
 | ------------------- | ------------- | ------------ |
@@ -288,7 +245,7 @@ Lower visibility distances correspond to higher fog levels.
 
 ---
 
-## 4.3 Adaptive TTC Threshold
+## Adaptive TTC Threshold
 
 | Condition    | TTC Threshold | Broadcast Rate |
 | ------------ | ------------- | -------------- |
@@ -301,7 +258,7 @@ This allows the system to increase safety margins during poor visibility.
 
 ---
 
-# 5 Use Case Scenario
+# 5. Use Case Scenario
 
 A vehicle travels at **60 km/h at night during heavy rain**. Environmental sensors detect low ambient light and high rain intensity, resulting in a low Visibility Index.
 
@@ -315,7 +272,7 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
-# 6 Decision Log
+# 6. Decision Log
 
 *(Chronological record of design decisions)*
 
@@ -329,15 +286,15 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
-# 7 AI Usage and Reflection
+# 7. AI Usage and Reflection
 
-## 7.1 AI Tools Used
+## AI Tools Used
 
 * **ChatGPT** – concept ideation and documentation
 
 ---
 
-## 7.2 Example Prompts Used
+## Example Prompts Used
 
 **Example prompt 1**
 
@@ -353,7 +310,7 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
-## 7.3 AI Limitations Identified
+## AI Limitations Identified
 
 1. AI suggested unrealistic hardware sensors that were replaced with practical alternatives.
 2. Some generated parameter values were unrealistic and were manually verified.
@@ -361,7 +318,7 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
-## 7.4 Individual Reflection
+# Individual Reflection
 
 Each team member will include a short reflection describing:
 
@@ -371,22 +328,22 @@ Each team member will include a short reflection describing:
 
 ---
 
-### Fatin
+## Fatin
 
 I contributed to defining the overall system scope and making sure our “adaptive visibility + adaptive communication” idea is framed as a protocol-level design, not just an alert app. I helped decide what information must be computed on the vehicle side and what should be left for the pedestrian phone to compute. I also worked on the AViRS safety message fields so the receiver has enough data to estimate TTC and trigger alerts reliably. AI tools (ChatGPT) helped me brainstorm alternative designs and organise the README sections so the logic reads clearly from problem → solution → implementation. I verified results by checking consistency across sections (architecture ↔ functions ↔ message format) and ensuring no missing inputs/outputs. Where AI suggestions were too complex for the assignment scope, I simplified them into practical, explainable choices.
 
-### Chor yi
+## Chor yi
 
 I focused on the adaptive risk scaling model and how the Visibility Index should behave under different conditions (clear day, night, heavy rain, fog). AI tools helped generate candidate formulas and mappings from visibility/speed to TTC thresholds, broadcast rates, and safety radius. I verified the model by testing edge cases mentally (e.g., heavy rain should reduce visibility and increase safety margins) and checking that the equations don’t produce contradictory outputs. I also reviewed the condition table to ensure the progression is logical and easy to justify in a presentation. When AI outputs were ambiguous (e.g., sign/normalization issues), I revised them into a clearly defined “higher V = better visibility” model with clamping/normalization assumptions. Overall, my contribution was ensuring the adaptive logic is technically coherent and defendable.
 
-### Shirin
+## Shirin
 
 I contributed to structuring the system workflow and documenting the end-to-end communication flow clearly (vehicle sensing → compute → broadcast → pedestrian TTC → alert). I also helped ensure the architecture diagrams and message flow match the written description, so the reader can understand the pipeline quickly. AI tools helped me draft concise explanations and reorder sections so the README follows a logical progression. I verified improvements by checking cross-references: each function listed is reflected in the diagram/flow, and each message field is used by the pedestrian decision logic. Where AI drafts were too wordy, I tightened them while keeping the technical meaning intact. My main focus was clarity, completeness, and “marker-friendly” presentation.
 
-### Sylvia
+## Sylvia
 
 I contributed to integrating the README into a consistent, submission-ready document and ensuring it aligns with the CEG3006 requirements and network focus. I worked on connecting the problem statement to measurable engineering trade-offs (latency, reliability, channel congestion, packet collisions) and making sure the design reads like a vehicular-network protocol adaptation. AI tools helped me polish the wording, improve structure, and generate checklists of what the README must include (tables, diagrams, decision log, reflection). I verified the final content by checking internal consistency (parameters match the use-case, tables match the narrative, and the adaptive model outputs move in the correct direction). When AI proposed values or claims that felt arbitrary, I adjusted them to more defensible ranges and added explicit assumptions (normalization/clamping). Overall, my contribution was quality control, coherence, and requirements alignment — not literature writing.
 
-### Jia yi
+## Jia yi
 
 I worked on turning our design choices into concrete engineering decisions for the decision log, including realistic alternatives and evaluation criteria. AI tools helped me generate a broad list of trade-offs (message size vs richness, rate scaling vs congestion risk, where to compute risk, privacy vs precision), and I selected the ones most relevant to CEG3006. I verified these by ensuring each decision can be justified using measurable metrics (latency, channel load, collision probability, power) rather than opinions. I also reviewed the system parameters so they remain plausible within our stated constraints (Hz range, safety radius range, target latency). Where AI suggestions were too generic, I rewrote them to match our specific AViRS-V2P design. My contribution strengthened the “engineering justification” side of the project.
