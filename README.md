@@ -128,6 +128,16 @@ Main components:
 
 ---
 
+## Environmental Parameter Ranges
+
+| Parameter | Measurement Unit | Example Range |
+|----------|------------------|--------------|
+| Ambient Light | lux | 0 – 10000 |
+| Rain Intensity | mm/hour | 0 – 10+ |
+| Visibility Distance | meters | 20 – 200+ |
+
+---
+
 # 4 Adaptive Risk Scaling Model
 
 ## Visibility Index (normalized)
@@ -151,6 +161,69 @@ S = 1 - V
 $$
 
 Lower visibility results in higher risk scaling.
+
+Example weighting factors used in this model:
+
+- wL = 0.4 (ambient light importance)
+- wR = 0.35 (rain impact)
+- wF = 0.25 (fog impact)
+
+The weights can be calibrated using experimental data or simulation in future implementations.
+
+---
+
+## Environmental Parameter Normalization
+
+The environmental parameters used in the Visibility Index are derived from real-world sensor measurements and normalized to a range between **0 and 1** so that they can be combined in a single equation.
+
+Normalization is commonly used in engineering systems when different sensors measure different physical units (e.g., lux, precipitation rate, visibility distance).
+
+### Ambient Light (L)
+
+Ambient light is measured using a vehicle light sensor or camera and expressed in **lux**.
+
+| Condition | Light Level | Normalized L |
+|----------|-------------|--------------|
+| Bright daylight | >1000 lux | 1.0 |
+| Cloudy daylight | 200–500 lux | 0.8 |
+| Street lighting | 10–50 lux | 0.3 |
+| Dark rural road | <5 lux | 0.1 |
+
+Lower light levels correspond to poorer visibility and therefore lower values of **L**.
+
+---
+
+### Rain Intensity (R)
+
+Rain intensity can be estimated using **vehicle wiper speed** as a proxy for precipitation level.
+
+| Wiper Speed | Estimated Rain Intensity | Normalized R |
+|-------------|--------------------------|--------------|
+| Off | No rain | 0.0 |
+| Intermittent | Light rain | 0.3 |
+| Medium speed | Moderate rain | 0.6 |
+| Maximum speed | Heavy rain | 1.0 |
+
+Higher rain intensity increases visual obstruction and therefore increases the risk factor.
+
+---
+
+### Fog Level (F)
+
+Fog severity can be estimated using **camera-based visibility detection**, where object contrast decreases as fog density increases.
+
+| Visibility Distance | Fog Condition | Normalized F |
+|---------------------|---------------|--------------|
+| >200 m | Clear | 0.0 |
+| 100–200 m | Light fog | 0.3 |
+| 50–100 m | Moderate fog | 0.6 |
+| <50 m | Dense fog | 1.0 |
+
+Lower visibility distances correspond to higher fog levels.
+
+---
+
+Using these normalized parameters allows different environmental measurements to be combined into a **single visibility index**, enabling the AViRS-V2P system to adapt communication and safety parameters dynamically.
 
 ---
 
