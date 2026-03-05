@@ -274,15 +274,22 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 # 6. Decision Log
 
-*(Chronological record of design decisions)*
+This section records the **chronological evolution** of AViRS-V2P, including triggers, realistic alternatives, engineering criteria, decisions, and AI usage.
 
-| Date  | Trigger                    | Options                         | Criteria           | Decision              | AI Usage         | Team Member |
-| ----- | -------------------------- | ------------------------------- | ------------------ | --------------------- | ---------------- | ----------- |
-| XX/XX | Initial design idea        | Fixed vs adaptive TTC           | Safety performance | Chose adaptive TTC    | AI brainstorming | Member A    |
-| XX/XX | Network congestion concern | Fixed vs dynamic rate           | Bandwidth          | Dynamic rate scaling  | AI suggestion    | Member B    |
-| XX/XX | Environmental sensing      | Raw sensors vs visibility index | Message size       | Visibility index used | AI assisted      | Member C    |
+| Date (DD/MM) | Trigger / Problem | Options / Alternatives | Evaluation Criteria (Engineering Metrics) | Decision & Rationale | AI Usage (if any) | Team Member(s) |
+|---|---|---|---|---|---|---|
+| 05/03 | Many V2P ideas are generic “warning apps”; need stronger vehicular-network focus | (A) Simple fixed TTC alert app (B) V2P with only adaptive TTC (C) Adaptive TTC + adaptive broadcast + visibility-aware scaling | Originality, network relevance, measurable trade-offs (latency/bandwidth) | Chose **(C)** to make it a protocol-level design: adaptive TTC + adaptive rate + visibility index (Sections **1,2,4**) | ChatGPT used to brainstorm multiple concepts; team merged best parts | Sylvia, Fatin |
+| 05/03 | Poor visibility is hard to quantify consistently | (A) Use raw sensor data only (lux/rain/fog) (B) Use a single Visibility Index (C) Use ML classifier | Message size, explainability, feasibility, integration simplicity | Chose **(B)** Visibility Index to compress sensing into one score while staying explainable (Sections **4.1, 4.2**) | ChatGPT suggested candidate formulas; team corrected sign/normalization | Chor Yi |
+| 06/03 | Need to decide where risk computation happens | (A) Vehicle computes TTC for pedestrian (B) Phone computes everything (C) Vehicle computes visibility + threshold; phone computes TTC | Latency, compute load, battery use, privacy, message overhead | Chose **(C)** split: vehicle computes Visibility Index + TTC threshold; pedestrian computes TTC locally (Sections **2.1, 4.3**) | ChatGPT used to compare architecture splits; human sanity checks | Fatin, Shirin |
+| 06/03 | Rate scaling risks channel congestion during dense traffic | (A) Always allow 10 Hz when low visibility (B) Add congestion-aware backoff (DCC-style) (C) Fixed 5 Hz maximum | Channel load, packet collision probability, scalability | Chose **(B)** DCC-style backoff: up to 10 Hz only when needed and channel load acceptable (Literature + **4.3**) | ChatGPT suggested congestion-control framing; team anchored to ETSI DCC | Sylvia, Jia Yi |
+| 07/03 | Decide what fields must be in the message to support TTC + adaptation | (A) Minimal: position, speed only (B) Add visibility index + TTC threshold (C) Add all raw sensors | Message size (~200B), receiver usefulness, privacy risk | Chose **(B)** include Visibility Index + TTC threshold + Safety Radius (Sections **2.2, 3.2**) | ChatGPT proposed extra fields; team trimmed | Fatin |
+| 07/03 | Risk Level definition is unclear (Low/Med/High) | (A) Risk from TTC only (B) Risk from visibility only (C) Combine TTC regime + visibility context | False positives, explainability, scenario consistency | Chose **(C)** define risk levels tied to adaptive TTC regimes and poor visibility (Sections **2.2, 4.3**) | ChatGPT suggested mapping; team simplified | Chor Yi |
+| 08/03 | Safety Radius should not be fixed in poor conditions | (A) Fixed 30 m always (B) Scale with visibility only (C) Scale with visibility + speed | Reaction distance, nuisance alerts, realism | Chose **(C)** adaptive Safety Radius (30–90 m) increases under low visibility/high speed (Sections **3.2, 4.3, 5**) | ChatGPT suggested wide ranges; humans constrained | Shirin, Chor Yi |
+| 08/03 | Equations must match the normalization tables | (A) Equation only (B) Equation + explicit normalization tables (C) Only lookup table | Consistency, readability, defensibility | Chose **(B)** keep equation and add normalization tables (Sections **4.2.1–4.2.3**) | ChatGPT helped format; team verified ranges | Chor Yi, Sylvia |
+| 09/03 | Decide on parameter bounds that are physically plausible | (A) TTC up to 6–8 s (B) TTC 2–4 s (C) TTC 1–3 s only | Reaction time, braking distance realism, practicality | Chose **(B)** TTC thresholds 2–4 s (clear→night+rain), consistent with use case (Sections **3.2, 4.3, 5**) | ChatGPT proposed larger values; team selected defensible bounds | Sylvia |
+| 10/03 | LaTeX may not render on GitHub consistently | (A) LaTeX only (B) LaTeX + code-block fallback (C) Remove formulas | Readability on GitHub, marking clarity | Chose **(B)** include readable code-block formula fallback (Section **4.1**) | ChatGPT suggested formatting approaches | Shirin, Sylvia |
 
-*(More entries will be added during system development.)*
+*(More entries will be inside decisionlog.md .)*
 
 ---
 
