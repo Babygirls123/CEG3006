@@ -18,6 +18,13 @@ Using this index, AViRS-V2P dynamically adjusts:
 This transforms V2P from a **static warning system into a context-aware adaptive communication protocol**, allowing safer operation while maintaining network efficiency.
 
 ---
+#Literature Research
+
+Vehicle-to-Pedestrian (V2P) safety has been widely studied as a way to protect vulnerable road users (VRUs) by broadcasting a vehicle’s state (e.g., position, speed, heading) and estimating collision risk on the receiving side. However, surveys highlight that practical V2P performance depends heavily on latency, reliability, positioning uncertainty, and scenario context, and that “one-size-fits-all” thresholds (e.g., a fixed TTC cut-off) may not generalize well across different pre-crash situations and environmental conditions (Sewalkar & Seitz, 2019). Beyond application logic, V2P also must remain network-feasible: raising beacon/message rates everywhere can increase channel load, collisions, and packet loss, which undermines safety messaging precisely when density is high.
+
+On the standardization side, ETSI’s VRU awareness work defines a VRU awareness basic service and associated message concepts (e.g., VAM) that structure how VRU-related information can be communicated, including considerations around dissemination and redundancy mitigation (ETSI TS 103 300-3). At the access/network layer, ITS-G5 specifications incorporate Decentralized Congestion Control (DCC) concepts to manage channel congestion and maintain acceptable performance under load (ETSI EN 303 797). ETSI technical reports further analyze congestion-control behavior and potential improvements, reinforcing that congestion management is a first-class design constraint for safety communications (ETSI TR 104 073).
+
+Building on this, AViRS-V2P contributes a protocol-level adaptation layer that couples (i) visibility-aware risk scaling (via a Visibility Index derived from light/rain/fog proxies) with (ii) adaptive TTC thresholds and adaptive broadcast rates, while (iii) applying a DCC-style backoff when the channel is busy. This targets earlier warning under poor visibility without “always-on high-rate” transmissions that can degrade overall network reliability.
 
 # 1 System Architecture
 
