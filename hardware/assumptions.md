@@ -1,9 +1,3 @@
-
----
-
-## `assumptions.md`
-
-```md
 # Assumptions
 
 This file records the main design assumptions used in the AViRS-V2P project. These assumptions help keep the scope realistic and explain how the proposed system operates even though it is presented as a design concept rather than a fully deployed commercial implementation.
