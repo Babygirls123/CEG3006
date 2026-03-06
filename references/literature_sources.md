@@ -9,3 +9,5 @@ ETSI. (2026). Intelligent Transport Systems (ITS); Facilities layer; Radio Resou
 Sewalkar, P., & Seitz, J. (2019). Vehicle-to-Pedestrian Communication for Vulnerable Road users: Survey, design considerations, and challenges. Sensors, 19(2), 358. https://doi.org/10.3390/s19020358
 
 Feng, S., Cai, X., Li, L., Wang, W., & Ying, S. (2025). A review of research on vehicle detection in adverse weather environments. journal of traffic and transportation engineering (english edition). https://doi.org/10.1016/j.jtte.2025.06.001
+
+Peintner, J., Manger, C., Alvarez, I., & Riener, A. (2025, September). Enhancing Pedestrian Realism in Adverse-Weather Driving Simulations Using Motion Capture Data. In Adjunct Proceedings of the 17th International Conference on Automotive User Interfaces and Interactive Vehicular Applications (pp. 214-219). https://doi.org/10.1145/3744335.3758507
