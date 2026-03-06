@@ -1,42 +1,50 @@
 PROCESS PedestrianNode:
   LOOP forever:
-    raw_msg = RECEIVE_V2P_MESSAGE()
-    IF raw_msg is NONE:
-      CONTINUE
 
-    msg = ParseAViRSMessage(raw_msg)
+    IF DEVICE_TYPE == "SMARTPHONE":
+      raw_msg = RECEIVE_V2P_MESSAGE()
+      IF raw_msg is NONE:
+        CONTINUE
 
-    // 1) Get pedestrian state
-    ped_lat, ped_lon = READ_PHONE_GNSS()
-    ped_speed_mps = ESTIMATE_PED_SPEED_FROM_GNSS_IMU()
-    ped_heading = ESTIMATE_PED_HEADING()
+      msg = ParseAViRSMessage(raw_msg)
 
-    // 2) Compute distance
-    veh_lat, veh_lon = msg.VehiclePosition.lat, msg.VehiclePosition.lon
-    distance_m = HaversineDistanceMeters(veh_lat, veh_lon, ped_lat, ped_lon)
+      // 1) Get pedestrian state
+      ped_lat, ped_lon = READ_PHONE_GNSS()
+      ped_speed_mps = ESTIMATE_PED_SPEED_FROM_GNSS_IMU()
+      ped_heading = ESTIMATE_PED_HEADING()
 
-    // 3) Filter by Safety Radius
-    IF distance_m > msg.SafetyRadius:
-      CONTINUE
+      // 2) Compute distance
+      veh_lat, veh_lon = msg.VehiclePosition.lat, msg.VehiclePosition.lon
+      distance_m = HaversineDistanceMeters(veh_lat, veh_lon, ped_lat, ped_lon)
 
-    // 4) Estimate closing speed
-    closing_speed_mps = EstimateClosingSpeed(
-      msg.VehicleSpeed,
-      msg.Heading,
-      ped_speed_mps,
-      ped_heading,
-      VECTOR(vehicle->ped)
-    )
+      // 3) Filter by Safety Radius
+      IF distance_m > msg.SafetyRadius:
+        CONTINUE
 
-    // 5) TTC calculation
-    ttc = ComputeTTC(distance_m, closing_speed_mps)
+      // 4) Estimate closing speed
+      closing_speed_mps = EstimateClosingSpeed(
+        msg.VehicleSpeed,
+        msg.Heading,
+        ped_speed_mps,
+        ped_heading,
+        VECTOR(vehicle->ped)
+      )
 
-    // 6) Decision rule using adaptive TTC threshold
-    IF ttc < msg.TTCThreshold:
-      // Trigger alert with intensity based on msg.RiskLevel
-      IF msg.RiskLevel == "High":
-        TRIGGER_ALERT("Strong")   // vibration + audio
-      ELSE IF msg.RiskLevel == "Medium":
-        TRIGGER_ALERT("Medium")   // vibration + soft audio
-      ELSE:
-        TRIGGER_ALERT("Low")      // vibration only
+      // 5) TTC calculation
+      ttc = ComputeTTC(distance_m, closing_speed_mps)
+
+      // 6) Decision rule using adaptive TTC threshold
+      IF ttc < msg.TTCThreshold:
+        IF msg.RiskLevel == "High":
+          TRIGGER_ALERT("Strong")   // vibration + audio
+        ELSE IF msg.RiskLevel == "Medium":
+          TRIGGER_ALERT("Medium")   // vibration + soft audio
+        ELSE:
+          TRIGGER_ALERT("Low")      // vibration only
+
+    ELSE IF DEVICE_TYPE == "SMART_TAG":
+      warning_signal = RECEIVE_TAG_WARNING_SIGNAL()
+      IF warning_signal is NONE:
+        CONTINUE
+
+      TRIGGER_TAG_ALERT("VIBRATION_OR_LED")
