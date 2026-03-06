@@ -133,7 +133,7 @@ This design improves safety for **vulnerable road users (VRUs)** such as childre
 ### Pedestrian Node
 
 * Receive vehicle message or warning signal
-* Estimate relative distance and speed (smartphone mode)
+* Estimate relative distance and speed when using the smartphone application
 * Compute TTC
 * Compare TTC with threshold
 * Trigger alert if risk is detected
@@ -153,6 +153,7 @@ This design improves safety for **vulnerable road users (VRUs)** such as childre
 | TTC Threshold    | Dynamic collision threshold             |
 | Safety Radius    | Maximum alert range                     |
 | Risk Level       | Low / Medium / High                     |
+
 
 For advanced reflective smart tag operation, the vehicle may also transmit a simplified warning signal to trigger vibration or LED alerts on the tag.
 
@@ -364,7 +365,7 @@ This approach ensures that the system remains usable by a wide range of pedestri
 
 In addition to smartphones, AViRS-V2P can support **advanced reflective smart tags** that communicate directly with vehicles.
 
-For example, a visually impaired pedestrian may carry a smart tag attached to their cane or jacket. The tag periodically broadcasts a low-power beacon that can be detected by nearby vehicles. When the vehicle's risk computation module predicts a low TTC value, the vehicle sends a warning signal back to the tag.
+For example, a visually impaired pedestrian may carry a smart tag attached to their cane or jacket. The tag periodically broadcasts a low-power beacon that is detected by nearby vehicles. When the vehicle's risk computation module predicts a low TTC value, the vehicle sends a warning signal back to the tag.
 
 The tag then triggers **vibration or flashing LED alerts**, while the vehicle simultaneously issues a **driver warning notification**. This two-way alert system improves safety for pedestrians who may not carry smartphones, such as children, elderly pedestrians, or wheelchair users.
 
