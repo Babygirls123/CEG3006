@@ -14,7 +14,7 @@ This is the main broadcast safety message transmitted by the vehicle.
 | vehicle_id | string | — | Anonymous or pseudonymous vehicle identifier |
 | timestamp | timestamp | ms | Message generation or transmit time |
 | vehicle_position | lat/lon | degrees | Vehicle GNSS position |
-| vehicle_speed | float | m/s or km/h | Current vehicle speed |
+| vehicle_speed | float | m/s | Current vehicle speed |
 | heading | float | degrees | Vehicle travel direction |
 | visibility_index | float | 0–1 | Computed visibility score, where 1 = best visibility |
 | ttc_threshold | float | s | Adaptive collision warning threshold |
