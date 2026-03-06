@@ -52,7 +52,12 @@ The AViRS-V2P system consists of two main components:
 
 ## 1.2 Architecture Diagram
 
+### Block Diagram
 ![Block Diagram](diagrams/BlockDiagram.png)
+
+---
+
+### Sequence Flow
 ![Sequence Flow](diagrams/SequenceFlow.png)
 
 ---
