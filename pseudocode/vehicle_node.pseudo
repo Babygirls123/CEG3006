@@ -43,6 +43,17 @@ PROCESS VehicleNodeLoop:
 
     msg = BuildAViRSMessage(vehicle_state, policy_outputs)
 
-    // 7) Broadcast at tx_rate_hz
+    // 7) Broadcast safety message
     BROADCAST(msg)
+
+    // 8) If collision risk is critical, trigger driver warning
+    IF risk_level == "High":
+      TRIGGER_DRIVER_WARNING("Dashboard + Audible Alert")
+
+    // 9) If nearby pedestrian device is a smart tag, send simplified warning signal
+    IF SMART_TAG_IN_RANGE() == TRUE AND risk_level == "High":
+      tag_warning = BuildSmartTagWarning(vehicle_state, risk_level)
+      SEND_TAG_WARNING_SIGNAL(tag_warning)
+
+    // 10) Wait according to adaptive broadcast rate
     SLEEP(1 / tx_rate_hz)
