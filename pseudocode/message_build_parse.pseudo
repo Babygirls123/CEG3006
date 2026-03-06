@@ -1,4 +1,4 @@
-// AViRS Safety Message (matches README Section 2.2)
+// AViRS Safety Message
 MESSAGE AViRS_SafetyMessage:
   VehicleID         // anonymous identifier
   Timestamp         // message generation time
@@ -9,6 +9,13 @@ MESSAGE AViRS_SafetyMessage:
   TTCThreshold      // dynamic collision threshold
   SafetyRadius      // maximum alert range
   RiskLevel         // Low / Medium / High
+
+// Simplified warning signal for advanced reflective smart tags
+MESSAGE SmartTagWarningSignal:
+  VehicleID         // anonymous identifier
+  Timestamp         // warning generation time
+  RiskLevel         // Low / Medium / High
+  AlertType         // VIBRATION, LED, or BOTH
 
 FUNCTION BuildAViRSMessage(vehicle_state, policy_outputs):
   msg.VehicleID = vehicle_state.vehicle_id
@@ -25,3 +32,14 @@ FUNCTION BuildAViRSMessage(vehicle_state, policy_outputs):
 FUNCTION ParseAViRSMessage(raw_msg):
   // validate basic fields exist; discard if missing
   RETURN decoded_msg
+
+FUNCTION BuildSmartTagWarning(vehicle_state, risk_level):
+  warning.VehicleID = vehicle_state.vehicle_id
+  warning.Timestamp = NOW()
+  warning.RiskLevel = risk_level
+  warning.AlertType = "BOTH"
+  RETURN warning
+
+FUNCTION ParseSmartTagWarning(raw_warning):
+  // validate basic fields exist; discard if missing
+  RETURN decoded_warning
