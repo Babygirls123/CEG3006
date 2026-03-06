@@ -7,3 +7,5 @@ ETSI. (2025). Intelligent Transport Systems (ITS); Vulnerable Road Users (VRU) a
 ETSI. (2026). Intelligent Transport Systems (ITS); Facilities layer; Radio Resource Management Study; Release 2. In ETSI TR 104 073 V2.2.1. https://www.etsi.org/deliver/etsi_tr/104000_104099/104073/02.02.01_60/tr_104073v020201p.pdf
 
 Sewalkar, P., & Seitz, J. (2019). Vehicle-to-Pedestrian Communication for Vulnerable Road users: Survey, design considerations, and challenges. Sensors, 19(2), 358. https://doi.org/10.3390/s19020358
+
+Feng, S., Cai, X., Li, L., Wang, W., & Ying, S. (2025). A review of research on vehicle detection in adverse weather environments. journal of traffic and transportation engineering (english edition). https://doi.org/10.1016/j.jtte.2025.06.001
