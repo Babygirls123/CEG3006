@@ -17,7 +17,9 @@ Using this index, AViRS-V2P dynamically adjusts:
 * Safety radius (alert distance)
 * Alert intensity
 
-This transforms V2P from a **static warning system into a context-aware adaptive communication protocol**, allowing safer operation while maintaining network efficiency.
+In addition to smartphone-based pedestrian alerts, the system can also support **advanced reflective smart tags**. These wearable tags broadcast a low-power beacon and can receive warning signals from nearby vehicles. When a potential collision is detected, the tag can trigger **vibration or LED alerts** to notify the pedestrian while simultaneously warning the driver. This allows the system to protect pedestrians who may not carry smartphones.
+
+This transforms V2P from a **static warning system into a context-aware, adaptive communication protocol**, allowing safer operation while maintaining network efficiency.
 
 ---
 
@@ -46,7 +48,7 @@ This targets earlier warning under poor visibility without “always-on high-rat
 The AViRS-V2P system consists of two main components:
 
 * **Vehicle Node**
-* **Pedestrian Node**
+* **Pedestrian Node**, which may use either a smartphone application or an advanced reflective smart tag
 
 ---
 
@@ -73,6 +75,7 @@ The vehicle continuously evaluates environmental conditions and computes a dynam
 * **Rain intensity detection** (wiper speed proxy)
 * **Fog or visibility estimator**
 * **Risk computation module**
+* **Driver alert interface** (dashboard warning / audible alert)
 * **V2X On-Board Unit** (DSRC or C-V2X)
 
 The vehicle broadcasts safety messages to nearby pedestrian devices.
@@ -81,15 +84,33 @@ The vehicle broadcasts safety messages to nearby pedestrian devices.
 
 ## 1.4 Pedestrian Side
 
-The pedestrian device (smartphone) receives V2P safety messages and evaluates collision risk.
+The pedestrian device may be either a **smartphone application or an advanced reflective smart tag**, both capable of receiving safety alerts and notifying the pedestrian.
 
 ### Main Components
 
+For smartphone-based pedestrians:
 * **Smartphone GNSS**
 * **Inertial sensors** (accelerometer / motion detection)
 * **V2P communication receiver**
 * **TTC estimation module**
 * **Alert engine** (audio / vibration warning)
+
+### Alternative Pedestrian Device: Reflective Smart Tag
+
+The system can also support a **wearable reflective smart tag** designed for pedestrians who may not carry smartphones.
+
+The tag periodically broadcasts a short wireless beacon and can receive warning signals from nearby vehicles. When a collision risk is detected, the tag can trigger **vibration or LED alerts** to warn the pedestrian.
+
+Example attachment locations include:
+
+- white cane (visually impaired pedestrians)
+- wheelchair
+- children's school bags
+- baby strollers
+- clothing or jackets
+- bicycles or electric scooters
+
+This design improves safety for **vulnerable road users (VRUs)** such as children, elderly pedestrians, and visually impaired individuals.
 
 ---
 
@@ -104,13 +125,15 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 * Adjust TTC threshold dynamically
 * Adjust broadcast frequency
 * Broadcast V2P safety message
+* Send warning signals to nearby pedestrian devices or smart tags
+* Trigger driver warning alerts if collision risk becomes critical
 
 ---
 
 ### Pedestrian Node
 
-* Receive vehicle message
-* Estimate relative distance and speed
+* Receive vehicle message or warning signal
+* Estimate relative distance and speed (smartphone mode)
 * Compute TTC
 * Compare TTC with threshold
 * Trigger alert if risk is detected
@@ -130,6 +153,8 @@ The pedestrian device (smartphone) receives V2P safety messages and evaluates co
 | TTC Threshold    | Dynamic collision threshold             |
 | Safety Radius    | Maximum alert range                     |
 | Risk Level       | Low / Medium / High                     |
+
+For advanced reflective smart tag operation, the vehicle may also transmit a simplified warning signal to trigger vibration or LED alerts on the tag.
 
 ---
 
@@ -276,6 +301,8 @@ A pedestrian approaching a crossing receives the V2P message through their smart
 
 The pedestrian device immediately triggers a **vibration and audio alert**, allowing the pedestrian to stop before entering the vehicle’s path.
 
+At the same time, the vehicle can also issue a **driver warning alert**, such as a dashboard notification or audible warning, when the TTC falls below the adaptive threshold. This provides an additional safety layer in case the pedestrian does not react immediately.
+
 This adaptive approach provides earlier warnings compared to traditional fixed-threshold V2P systems.
 
 ---
@@ -286,7 +313,7 @@ While AViRS-V2P improves pedestrian awareness and collision warning capability, 
 
 ### Pedestrian Without a Smartphone
 
-If a pedestrian does not carry a smartphone or a compatible V2P receiver, the pedestrian will not receive the safety message directly. In this case, the system can still improve safety indirectly because the vehicle may trigger **driver alerts or advanced driver assistance systems**, such as visual warnings or automatic emergency braking (AEB), when the predicted TTC falls below the safety threshold. AViRS-V2P therefore acts as an **additional safety layer** rather than replacing existing vehicle safety mechanisms.
+If a pedestrian does not carry a smartphone, they may still be supported through a compatible advanced reflective smart tag. However, if the pedestrian carries neither a smartphone nor a compatible tag, the pedestrian will not receive the safety message directly. In this case, the system can still improve safety indirectly because the vehicle may trigger **driver alerts or advanced driver assistance systems**, such as visual warnings or automatic emergency braking (AEB), when the predicted TTC falls below the safety threshold. AViRS-V2P therefore acts as an **additional safety layer** rather than replacing existing vehicle safety mechanisms.
 
 ### Vehicle Communication or Sensor Failure
 
@@ -301,6 +328,45 @@ Wireless V2P communication may occasionally experience **packet loss, interferen
 V2P systems rely on GNSS positioning to estimate distance and trajectory between the vehicle and pedestrian. However, GNSS signals can experience **positioning errors due to urban buildings, signal blockage, or multipath reflections**. AViRS-V2P addresses this by using a **safety radius and TTC threshold margin**, ensuring that small positioning inaccuracies do not significantly affect the warning decision.
 
 These considerations highlight that AViRS-V2P is designed to **complement existing vehicle safety systems while improving pedestrian awareness in low-visibility environments**.
+
+---
+
+## 5.2 Accessibility Considerations
+
+AViRS-V2P is designed to support different types of pedestrians, including those with visual or hearing impairments.
+
+### Support for Visually Impaired Pedestrians
+
+For visually impaired pedestrians, the smartphone application can provide **audio-based warnings** using voice prompts or audible alerts. When the system detects that the TTC falls below the safety threshold, the device can announce warnings such as:
+
+- “Warning: Vehicle approaching”
+- “Do not cross”
+
+These voice alerts allow visually impaired users to receive clear guidance even when they cannot see the vehicle.
+
+### Support for Hearing-Impaired Pedestrians
+
+For pedestrians who are deaf or hard of hearing, the system can provide **strong vibration alerts and visual notifications** on the smartphone screen. These alerts ensure that users who cannot hear audible warnings can still detect the approaching vehicle through tactile or visual feedback.
+
+### Multi-Modal Alert Design
+
+To improve accessibility, AViRS-V2P supports **multi-modal alerts**, including:
+
+- Audio alerts
+- Vibration alerts
+- Visual notifications
+
+This approach ensures that the system remains usable by a wide range of pedestrians with different accessibility needs.
+
+---
+
+## 5.3 Smart Tag Assisted Pedestrian Protection
+
+In addition to smartphones, AViRS-V2P can support **advanced reflective smart tags** that communicate directly with vehicles.
+
+For example, a visually impaired pedestrian may carry a smart tag attached to their cane or jacket. The tag periodically broadcasts a low-power beacon that can be detected by nearby vehicles. When the vehicle's risk computation module predicts a low TTC value, the vehicle sends a warning signal back to the tag.
+
+The tag then triggers **vibration or flashing LED alerts**, while the vehicle simultaneously issues a **driver warning notification**. This two-way alert system improves safety for pedestrians who may not carry smartphones, such as children, elderly pedestrians, or wheelchair users.
 
 ---
 
