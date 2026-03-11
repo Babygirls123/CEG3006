@@ -385,8 +385,6 @@ The tag then triggers **vibration or flashing LED alerts**, while the vehicle si
 | **20/03/2026** | Pedestrian intent detection system   | Intent-aware crossing vs traditional system  | Pedestrian interaction            | Chose intent-aware crossing                  | AI helped with simulation | Member F           |
 | **25/03/2026** | System final integration and review  | Final integration vs incremental additions   | System readiness                  | Proceeded with final system integration      | AI optimized final design | Full team          |
 
-*(More entries will be added during system development.)*
-
 # 7. AI Usage and Reflection
 
 ## 7.1 AI Tools Used
