@@ -377,9 +377,13 @@ The tag then triggers **vibration or flashing LED alerts**, while the vehicle si
 
 | Date  | Trigger                    | Options                         | Criteria           | Decision              | AI Usage         | Team Member |
 | ----- | -------------------------- | ------------------------------- | ------------------ | --------------------- | ---------------- | ----------- |
-| XX/XX | Initial design idea        | Fixed vs adaptive TTC           | Safety performance | Chose adaptive TTC    | AI brainstorming | Member A    |
-| XX/XX | Network congestion concern | Fixed vs dynamic rate           | Bandwidth          | Dynamic rate scaling  | AI suggestion    | Member B    |
-| XX/XX | Environmental sensing      | Raw sensors vs visibility index | Message size       | Visibility index used | AI assisted      | Member C    |
+| **05/03/2026** | Initial design idea                  | Fixed vs adaptive TTC                        | Safety performance                | Chose adaptive TTC                           | AI brainstorming         | Member A           |
+| **06/03/2026** | Network congestion concern           | Fixed vs dynamic rate                        | Bandwidth                         | Chose dynamic rate scaling                   | AI suggestion            | Member B           |
+| **10/03/2026** | Environmental sensing                | Raw sensors vs visibility index              | Message size                      | Chose visibility index                       | AI assisted              | Member C           |
+| **15/03/2026** | Smart tag design refinement          | Compact size vs larger battery               | Power efficiency                  | Chose compact size and low power consumption | AI assisted              | Member D           |
+| **18/03/2026** | Cyclist safety feature               | Blind spot detection vs cyclist notifications | System integration                | Integrated blind spot detection for cyclists | AI suggestion            | Member E           |
+| **20/03/2026** | Pedestrian intent detection system   | Intent-aware crossing vs traditional system  | Pedestrian interaction            | Chose intent-aware crossing                  | AI helped with simulation | Member F           |
+| **25/03/2026** | System final integration and review  | Final integration vs incremental additions   | System readiness                  | Proceeded with final system integration      | AI optimized final design | Full team          |
 
 *(More entries will be added during system development.)*
 
