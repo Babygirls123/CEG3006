@@ -312,6 +312,15 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
+### Use Case - Architecture
+![Sequence Flow](diagrams/useCaseArchitecture.png)
+
+---
+
+### Use Case - Architecture
+![Sequence Flow](diagrams/useCaseSequenceDiagram.png)
+
+---
 ## 5.1 System Limitations and Fallback Scenarios
 
 While AViRS-V2P improves pedestrian awareness and collision warning capability, certain real-world situations may limit the effectiveness of the system.
