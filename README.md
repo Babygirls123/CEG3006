@@ -317,7 +317,7 @@ This adaptive approach provides earlier warnings compared to traditional fixed-t
 
 ---
 
-### Use Case - Architecture
+### Use Case - Sequence Flow
 ![Sequence Flow](diagrams/useCaseSequenceDiagram.png)
 
 ---
