@@ -59,10 +59,14 @@ The AViRS-V2P system consists of two main components:
 
 ---
 
-### Sequence Flow
-![Sequence Flow](diagrams/SequenceFlow.png)
+### Sequence Flow - Pedestrian (Smartphone)
+![Sequence Flow](diagrams/SmartPhoneSequenceDiagram.png)
 
 ---
+
+### Sequence Flow - Pedestrian (SmartTags)
+![Sequence Flow](diagrams/SmartPhoneSequenceDiagram.png)
+
 
 ## 1.3 Vehicle Side
 
